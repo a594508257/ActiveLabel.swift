@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public protocol ActiveLabelDelegate: class {
+public protocol ActiveLabelDelegate: AnyObject {
     func didSelect(_ text: String, type: ActiveType)
 }
 
@@ -340,11 +340,14 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             }
             
             if let configureLinkAttribute = configureLinkAttribute {
-                attributes = configureLinkAttribute(type, attributes, false)
-            }
-            
-            for element in elements {
-                mutAttrString.setAttributes(attributes, range: element.range)
+                let temp = configureLinkAttribute(type, attributes, false)
+                for element in elements {
+                    mutAttrString.setAttributes(temp, range: element.range)
+                }
+            } else {
+                for element in elements {
+                    mutAttrString.setAttributes(attributes, range: element.range)
+                }
             }
         }
     }
