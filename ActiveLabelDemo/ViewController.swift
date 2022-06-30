@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         label.enabledTypes.append(customType)
         label.enabledTypes.append(customType2)
         label.enabledTypes.append(customType3)
-
+        label.hasDefaultSelectedColor = true
         label.urlMaximumLength = 31
 
         label.customize { label in
@@ -34,10 +34,10 @@ class ViewController: UIViewController {
             label.lineSpacing = 4
             
             label.textColor = UIColor(red: 102.0/255, green: 117.0/255, blue: 127.0/255, alpha: 1)
-            label.hashtagColor = UIColor(red: 85.0/255, green: 172.0/255, blue: 238.0/255, alpha: 1)
-            label.mentionColor = UIColor(red: 238.0/255, green: 85.0/255, blue: 96.0/255, alpha: 1)
-            label.URLColor = UIColor(red: 85.0/255, green: 238.0/255, blue: 151.0/255, alpha: 1)
-            label.URLSelectedColor = UIColor(red: 82.0/255, green: 190.0/255, blue: 41.0/255, alpha: 1)
+            label.setNormalColor(for: .hashtag, color: UIColor(red: 85.0/255, green: 172.0/255, blue: 238.0/255, alpha: 1))
+            label.setNormalColor(for: .mention, color: UIColor(red: 238.0/255, green: 85.0/255, blue: 96.0/255, alpha: 1))
+            label.setNormalColor(for: .url, color: UIColor(red: 85.0/255, green: 238.0/255, blue: 151.0/255, alpha: 1))
+            label.setSelectedColor(for: .url, color: UIColor(red: 82.0/255, green: 190.0/255, blue: 41.0/255, alpha: 1))
 
             label.handleMentionTap { self.alert("Mention", message: $0) }
             label.handleHashtagTap { self.alert("Hashtag", message: $0) }
@@ -45,10 +45,10 @@ class ViewController: UIViewController {
 
             //Custom types
 
-            label.customColor[customType] = UIColor.purple
-            label.customSelectedColor[customType] = UIColor.green
-            label.customColor[customType2] = UIColor.magenta
-            label.customSelectedColor[customType2] = UIColor.green
+            label.setNormalColor(for: customType, color: UIColor.purple)
+            label.setSelectedColor(for: customType, color: UIColor.green)
+            label.setNormalColor(for: customType2, color: UIColor.magenta)
+            label.setSelectedColor(for: customType2, color: UIColor.green)
             
             label.configureLinkAttribute = { (type, attributes, isSelected) in
                 var atts = attributes
